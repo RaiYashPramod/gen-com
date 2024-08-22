@@ -1,3 +1,4 @@
+const axios = require('axios');
 const vscode = require('vscode');
 const simpleGit = require('simple-git');
 const fs = require('fs');
@@ -27,8 +28,14 @@ function activate(context) {
 			const git = simpleGit(normalizedWorkspacePath);
 
 			const diff = await git.diff()
+			const commitMessage = await queryModel(diff);
 
-			vscode.window.showInformationMessage(diff);
+			// Display the generated commit message
+			vscode.window.showInformationMessage('Generated Commit Message:\n' + commitMessage);
+
+			// Copy the commit message to the clipboard
+			await vscode.env.clipboard.writeText(commitMessage);
+			vscode.window.showInformationMessage('Commit message copied to clipboard!');
 		} catch (error) {
 			vscode.window.showErrorMessage('Error getting diff: ' + error.message);
 		}
@@ -37,6 +44,19 @@ function activate(context) {
 	context.subscriptions.push(disposable);
 }
 
+const queryModel = async (diff) => {
+	try {
+		const response = await axios.post('http://localhost:3030/api/generate', {
+			diff: diff,
+		})
+
+		return response.data;
+	} catch (error) {
+			console.error('Error generating commit message:', error);
+      return 'Error generating commit message';
+
+	}
+}
 // This method is called when your extension is deactivated
 function deactivate() {}
 
