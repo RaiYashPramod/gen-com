@@ -1,16 +1,14 @@
+## Demo
+
+https://github.com/user-attachments/assets/964d6cf2-e084-4a31-86ac-d958eea7a0fe
 # gen-com README
 
 This is the README for your extension "gen-com". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+Creates a concise and presice commit message based on the current changes in your repo files using Google's Gemini LLM modal
 
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
 
 ## Requirements
 
